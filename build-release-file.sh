@@ -13,3 +13,5 @@ if [ "$file" != "Release" ] && [ "$(basename "$file")" != ".gitkeep" ]; then
         echo " $(sha256sum "$file" | awk '{print $1}') $(stat --printf="%s" "$file") $file" >> Release;
     fi
 done
+gpg2 -a -b -s --output ./dists/daily/Release.gpg ./dists/daily/Release;
+gpg2 --clearsign --output ./dists/daily/InRelease ./dists/daily/Release;
